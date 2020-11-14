@@ -1,60 +1,60 @@
 package com.example.autoware;
 
 public class Car {
-    private String RegistrationNumber;
-    private String CustomerId;
-    private String Brand;
-    private String Model;
-    private String FuelType;
+    private String registrationNumber;
+    private String customerid;
+    private String brand;
+    private String model;
+    private String fueltype;
 
     public Car() {
     }
 
     public Car(String registrationNumber, String customerId, String brand, String model, String fuelType) {
-        RegistrationNumber = registrationNumber;
-        CustomerId = customerId;
-        Brand = brand;
-        Model = model;
-        FuelType = fuelType;
+        this.registrationNumber = registrationNumber;
+        this.customerid = customerId;
+        this.brand = brand;
+        this.model = model;
+        this.fueltype = fuelType;
     }
 
     public String getRegistrationNumber() {
-        return RegistrationNumber;
+        return registrationNumber;
     }
 
     public void setRegistrationNumber(String registrationNumber) {
-        RegistrationNumber = registrationNumber;
+        this.registrationNumber = registrationNumber;
     }
 
-    public String getCustomerId() {
-        return CustomerId;
+    public String getCustomerid() {
+        return customerid;
     }
 
-    public void setCustomerId(String customerId) {
-        CustomerId = customerId;
+    public void setCustomerid(String customerid) {
+        this.customerid = customerid;
     }
 
     public String getBrand() {
-        return Brand;
+        return brand;
     }
 
     public void setBrand(String brand) {
-        Brand = brand;
+        this.brand = brand;
     }
 
     public String getModel() {
-        return Model;
+        return model;
     }
 
     public void setModel(String model) {
-        Model = model;
+        this.model = model;
     }
 
-    public String getFuelType() {
-        return FuelType;
+    public String getFueltype() {
+        return fueltype;
     }
 
-    public void setFuelType(String fuelType) {
-        FuelType = fuelType;
+    public void setFueltype(String fueltype) {
+        this.fueltype = fueltype;
     }
 }

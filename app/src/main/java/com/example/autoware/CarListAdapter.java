@@ -48,7 +48,7 @@ public class CarListAdapter extends BaseAdapter {
         TextView CarDetails = (TextView) itemView.findViewById(R.id.text_small);
         Car selectedCar = getItem(position);
         RegistrationNumber.setText(selectedCar.getRegistrationNumber());
-        CarDetails.setText(selectedCar.getBrand()+" " +selectedCar.getModel() +", " +selectedCar.getFuelType());
+        CarDetails.setText(selectedCar.getBrand()+" " +selectedCar.getModel() +", " +selectedCar.getFueltype());
         return itemView;
     }
 }

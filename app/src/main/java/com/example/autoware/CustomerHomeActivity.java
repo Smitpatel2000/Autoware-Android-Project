@@ -11,13 +11,25 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.transition.Slide;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Gravity;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.io.File;
 
 public class CustomerHomeActivity extends AppCompatActivity {
     private ActionBarDrawerToggle toggle;
@@ -31,15 +43,32 @@ public class CustomerHomeActivity extends AppCompatActivity {
 
         drl = (DrawerLayout) findViewById(R.id.cust_drawer);
         nv = (NavigationView) findViewById(R.id.cust_navigationdrawer);
+
+
+
+        FirebaseFirestore.getInstance().collection("Customers").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).get().
+                addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        Customer c = documentSnapshot.toObject(Customer.class);
+                        TextView tv = nv.findViewById(R.id.drawer_Textview);
+                        tv.setText(c.getName());
+                        ImageView ProfileImage = nv.findViewById(R.id.drawer_ImageView);
+                        File imgFile = new File(Environment.getExternalStorageDirectory(), "/AutowarePictures/ProfilePicture.jpg");
+                        Glide.with(getApplicationContext()).load(imgFile).into(ProfileImage);
+                    }
+                });
+
         toggle = new ActionBarDrawerToggle(this, drl, R.string.open, R.string.close);
         drl.addDrawerListener(toggle);
         toggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Toast.makeText(this, FirebaseAuth.getInstance().getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, FirebaseAuth.getInstance().getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Intent it;
+                FragmentTransaction ft;
                 switch (item.getItemId()) {
                     case R.id.dr_cust_logout:
                         FirebaseAuth.getInstance().signOut();
@@ -49,12 +78,21 @@ public class CustomerHomeActivity extends AppCompatActivity {
                         break;
 
                     case R.id.dr_cust_cars:
-                        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                        ft.replace(R.id.cust_framelayout,new CarsFragment());
+                        ft = getSupportFragmentManager().beginTransaction();
+                        ft.replace(R.id.cust_framelayout, new CarsFragment());
                         ft.commit();
                         break;
 
                     case R.id.dr_cust_services:
+                        break;
+
+                    case R.id.dr_cust_account:
+                        ft = getSupportFragmentManager().beginTransaction();
+                        ft.replace(R.id.cust_framelayout, new Cust_AccountFragment());
+                        ft.commit();
+                        break;
+
+                    case R.id.dr_cust_home:
                         break;
                 }
                 drl.closeDrawer(GravityCompat.START);
@@ -71,8 +109,6 @@ public class CustomerHomeActivity extends AppCompatActivity {
             return true;
         return super.onOptionsItemSelected(item);
     }
-
-
 }
 
 

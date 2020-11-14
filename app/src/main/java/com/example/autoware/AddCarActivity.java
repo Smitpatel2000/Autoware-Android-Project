@@ -39,6 +39,7 @@ public class AddCarActivity extends AppCompatActivity {
         Add_car.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                 String UID = firebaseAuth.getCurrentUser().getUid();
                 Car c = new Car(RegistrationNumber.getText().toString(),UID,Brand.getText().toString(),Model.getText().toString(),FuelType);
@@ -66,5 +67,6 @@ public class AddCarActivity extends AppCompatActivity {
     {
         RadioButton rd = (RadioButton)v;
         FuelType = rd.getText().toString();
+
     }
 }

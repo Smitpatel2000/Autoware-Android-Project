@@ -1,26 +1,26 @@
 package com.example.autoware;
 
 public class Customer {
-    private String Name = "";
-    private String Loaction = "";
-    private String Email = "";
+    private String name = "";
+    private String location = "";
+    private String email = "";
     public Customer() {
     }
-    public Customer(String name, String loaction, String email) {
-        Name = name;
-        Loaction = loaction;
-        Email = email;
+    public Customer(String name, String location, String email) {
+        this.name = name;
+        this.location = location;
+        this.email = email;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
-    public String getLoaction() {
-        return Loaction;
+    public String getLocation() {
+        return location;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 }
