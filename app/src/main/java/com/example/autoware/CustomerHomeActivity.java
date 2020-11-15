@@ -63,6 +63,10 @@ public class CustomerHomeActivity extends AppCompatActivity {
         drl.addDrawerListener(toggle);
         toggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        FragmentTransaction f = getSupportFragmentManager().beginTransaction();
+        f.replace(R.id.cust_framelayout, new Customer_HomeFragment());
+        f.commit();
         //Toast.makeText(this, FirebaseAuth.getInstance().getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -93,6 +97,9 @@ public class CustomerHomeActivity extends AppCompatActivity {
                         break;
 
                     case R.id.dr_cust_home:
+                        ft = getSupportFragmentManager().beginTransaction();
+                        ft.replace(R.id.cust_framelayout, new Customer_HomeFragment());
+                        ft.commit();
                         break;
                 }
                 drl.closeDrawer(GravityCompat.START);

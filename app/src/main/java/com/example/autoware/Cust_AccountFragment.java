@@ -29,6 +29,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -46,8 +47,10 @@ public class Cust_AccountFragment extends Fragment {
     private ImageButton Save, Cancel;
     private FloatingActionButton ChooseImage;
     private ImageView ProfileImage;
+    private NavigationView nav;
     private static final int IMAGE_PICK_CODE = 1000;
     private static final int PERMISSION_CODE = 1001;
+
     public Cust_AccountFragment() {
         // Required empty public constructor
     }
@@ -67,7 +70,7 @@ public class Cust_AccountFragment extends Fragment {
         Cancel = (ImageButton) v.findViewById(R.id.Account_Cancelbtn);
         ProfileImage = (ImageView) v.findViewById(R.id.Account_ProfileImage);
         ChooseImage = (FloatingActionButton) v.findViewById(R.id.Account_EditPhotobtn);
-
+        nav = (NavigationView) getActivity().findViewById(R.id.cust_navigationdrawer);
         File imgFile = new File(Environment.getExternalStorageDirectory(), "/AutowarePictures/ProfilePicture.jpg");
         Glide.with(getActivity().getApplicationContext()).load(imgFile).into(ProfileImage);
 
@@ -90,20 +93,18 @@ public class Cust_AccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //check runtime permission
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (getActivity().checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-                            == PackageManager.PERMISSION_DENIED){
+                            == PackageManager.PERMISSION_DENIED) {
                         //permission not granted, request it.
                         String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
                         //show popup for runtime permission
                         requestPermissions(permissions, PERMISSION_CODE);
-                    }
-                    else {
+                    } else {
                         //permission already granted
                         pickImageFromGallery();
                     }
-                }
-                else {
+                } else {
                     //system os is less then marshmallow
                     pickImageFromGallery();
                 }
@@ -136,12 +137,10 @@ public class Cust_AccountFragment extends Fragment {
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
                     outStream.flush();
                     outStream.close();
-                }
-                catch (FileNotFoundException e) {
+                } catch (FileNotFoundException e) {
                     e.printStackTrace();
-                    Toast.makeText(getActivity().getApplicationContext(), "File Not Found:"+e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-                catch (IOException e) {
+                    Toast.makeText(getActivity().getApplicationContext(), "File Not Found:" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
                     e.printStackTrace();
                     Toast.makeText(getActivity().getApplicationContext(), "IO error", Toast.LENGTH_SHORT).show();
                 }
@@ -152,9 +151,12 @@ public class Cust_AccountFragment extends Fragment {
                         addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                //FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                                //ft.replace(R.id.cust_framelayout,new );
-                                //ft.commit();
+                                Intent i = new Intent(getActivity(), CustomerHomeActivity.class);
+                                getActivity().finish();
+                                startActivity(i);
+                                ImageView ProfileImage = nav.findViewById(R.id.drawer_ImageView);
+                                File imgFile = new File(Environment.getExternalStorageDirectory(), "/AutowarePictures/ProfilePicture.jpg");
+                                Glide.with(getActivity().getApplicationContext()).load(imgFile).into(ProfileImage);
                                 Toast.makeText(getActivity().getApplicationContext(), "User details saved", Toast.LENGTH_SHORT).show();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
@@ -185,14 +187,13 @@ public class Cust_AccountFragment extends Fragment {
     //handle result of runtime permission
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode){
-            case PERMISSION_CODE:{
-                if (grantResults.length >0 && grantResults[0] ==
-                        PackageManager.PERMISSION_GRANTED){
+        switch (requestCode) {
+            case PERMISSION_CODE: {
+                if (grantResults.length > 0 && grantResults[0] ==
+                        PackageManager.PERMISSION_GRANTED) {
                     //permission was granted
                     pickImageFromGallery();
-                }
-                else {
+                } else {
                     //permission was denied
                     Toast.makeText(getActivity().getApplicationContext(), "Permission denied...!", Toast.LENGTH_SHORT).show();
                 }
@@ -203,7 +204,7 @@ public class Cust_AccountFragment extends Fragment {
     //handle result of picked image
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == getActivity().RESULT_OK && requestCode == IMAGE_PICK_CODE){
+        if (resultCode == getActivity().RESULT_OK && requestCode == IMAGE_PICK_CODE) {
             //set image to image view
             ProfileImage.setImageURI(data.getData());
 
