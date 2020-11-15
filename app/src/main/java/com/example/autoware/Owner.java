@@ -1,27 +1,27 @@
 package com.example.autoware;
 
 public class Owner {
-    private String Name = "";
-    private String Garagename = "";
-    private String Location = "";
+    private String name = "";
+    private String garagename = "";
+    private String location = "";
 
     public Owner(){}
 
     public Owner( String name, String garagename, String location) {
-        Name = name;
-        Garagename = garagename;
-        Location = location;
+        this.name = name;
+        this.garagename = garagename;
+        this.location = location;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public String getGaragename() {
-        return Garagename;
+        return garagename;
     }
 
     public String getLocation() {
-        return Location;
+        return location;
     }
 }

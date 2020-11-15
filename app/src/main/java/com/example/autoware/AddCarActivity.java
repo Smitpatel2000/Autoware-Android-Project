@@ -44,7 +44,7 @@ public class AddCarActivity extends AppCompatActivity {
                 String UID = firebaseAuth.getCurrentUser().getUid();
                 Car c = new Car(RegistrationNumber.getText().toString(),UID,Brand.getText().toString(),Model.getText().toString(),FuelType);
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
-                DocumentReference dref = db.collection("Cars").document(UID).collection("Cars").document(RegistrationNumber.getText().toString());
+                DocumentReference dref = db.collection("Cars").document(UID);
                 dref.set(c).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {

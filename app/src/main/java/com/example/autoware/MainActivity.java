@@ -125,9 +125,32 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         if (firebaseAuth.getCurrentUser() != null) {
-            Intent i = new Intent(MainActivity.this, CustomerHomeActivity.class);
-            startActivity(i);
-            this.finish();
+            FirebaseFirestore.getInstance().collection("Customers").document(firebaseAuth.getCurrentUser().getUid()).get().addOnSuccessListener(
+                    new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            if(documentSnapshot.exists())
+                            {
+                                Intent i = new Intent(MainActivity.this, CustomerHomeActivity.class);
+                                startActivity(i);
+                                finish();
+                            }
+                        }
+                    }
+            );
+            FirebaseFirestore.getInstance().collection("Owners").document(firebaseAuth.getCurrentUser().getUid()).get().addOnSuccessListener(
+                    new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            if(documentSnapshot.exists())
+                            {
+                                Intent i = new Intent(MainActivity.this, Owner.class);
+                                startActivity(i);
+                                finish();
+                            }
+                        }
+                    }
+            );
             //Toast.makeText(this, "Username: " + firebaseAuth.getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
         } else
             Toast.makeText(this, "Please login (username is NULL)", Toast.LENGTH_SHORT).show();
