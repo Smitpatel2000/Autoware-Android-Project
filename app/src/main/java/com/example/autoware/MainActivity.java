@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
                             if(documentSnapshot.exists())
                             {
-                                Intent i = new Intent(MainActivity.this, Owner.class);
+                                Intent i = new Intent(MainActivity.this, HomeActivity.class);
                                 startActivity(i);
                                 finish();
                             }

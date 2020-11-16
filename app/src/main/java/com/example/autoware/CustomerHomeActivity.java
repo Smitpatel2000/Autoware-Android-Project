@@ -44,8 +44,6 @@ public class CustomerHomeActivity extends AppCompatActivity {
         drl = (DrawerLayout) findViewById(R.id.cust_drawer);
         nv = (NavigationView) findViewById(R.id.cust_navigationdrawer);
 
-
-
         FirebaseFirestore.getInstance().collection("Customers").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).get().
                 addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
@@ -55,7 +53,11 @@ public class CustomerHomeActivity extends AppCompatActivity {
                         tv.setText(c.getName());
                         ImageView ProfileImage = nv.findViewById(R.id.drawer_ImageView);
                         File imgFile = new File(Environment.getExternalStorageDirectory(), "/AutowarePictures/ProfilePicture.jpg");
-                        Glide.with(getApplicationContext()).load(imgFile).into(ProfileImage);
+                        try {
+                            Glide.with(getApplicationContext()).load(imgFile).into(ProfileImage);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
 
