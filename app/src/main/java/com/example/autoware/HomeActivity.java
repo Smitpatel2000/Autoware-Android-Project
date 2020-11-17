@@ -41,9 +41,9 @@ public class HomeActivity extends AppCompatActivity {
                 addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        Customer c = documentSnapshot.toObject(Customer.class);
+                        Owner o = documentSnapshot.toObject(Owner.class);
                         TextView tv = nv.findViewById(R.id.drawer_Textview);
-                        tv.setText(c.getName());
+                        tv.setText(o.getName());
                         ImageView ProfileImage = nv.findViewById(R.id.drawer_ImageView);
                         File imgFile = new File(Environment.getExternalStorageDirectory(), "/AutowarePictures/ProfilePicture.jpg");
                         try {
@@ -98,12 +98,18 @@ public class HomeActivity extends AppCompatActivity {
                         ft.replace(R.id.owner_framelayout, new Customer_HomeFragment());
                         ft.commit();
                         break;
+                    case R.id.owner_Account:
+                        ft = getSupportFragmentManager().beginTransaction();
+                        ft.replace(R.id.owner_framelayout, new Owner_AccountFragment());
+                        ft.commit();
+                        break;
                 }
                 drl.closeDrawer(GravityCompat.START);
                 return true;
             }
         });
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();

@@ -104,7 +104,7 @@ public class SignupActivity extends AppCompatActivity {
                             Toast.makeText(SignupActivity.this, "User registered", Toast.LENGTH_SHORT).show();
                             String ID = firebaseAuth.getCurrentUser().getUid();
                             if (isowner) {
-                                db.collection("Owners").document(ID).set(new Owner("", "", "")).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                db.collection("Owners").document(ID).set(new Owner("","","","","",firebaseAuth.getCurrentUser().getEmail())).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         Intent i = new Intent(SignupActivity.this, HomeActivity.class);
