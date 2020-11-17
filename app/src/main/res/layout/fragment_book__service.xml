@@ -15,7 +15,7 @@
             android:layout_height="70dp"
             android:background="#eee"
             android:gravity="center"
-            android:text="BookService"
+            android:text="Book Service"
             android:textSize="40dp"
             android:textStyle="bold"
             android:typeface="serif" />
@@ -24,6 +24,11 @@
             android:id="@+id/ServiceStationDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:typeface="serif"
+            android:textStyle="italic"
+            android:textSize="18dp"
+
             android:background="#ddd"
             />
 
@@ -35,17 +40,28 @@
 
         </LinearLayout>
 
+        <EditText
+            android:id="@+id/edittext_cust_service_description"
+            android:layout_width="match_parent"
+            android:textSize="22dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:hint="Enter Description of the Service"
+            android:ems="10"
+            android:inputType="textMultiLine" />
+
         <Switch
             android:id="@+id/towing_switch"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:background="#ddd"
             android:layout_height="wrap_content"
-            android:text="Towing"
-            android:layout_marginLeft="30dp"
-            android:textSize="20dp" />
+            android:text="Towing Service"
+            android:textSize="22dp" />
 
         <Button
             android:id="@+id/btn_book_service"
             android:layout_width="wrap_content"
+            android:layout_marginTop="40dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Book Service"
@@ -53,5 +69,7 @@
 
 
     </LinearLayout>
+
+
 
 </FrameLayout>

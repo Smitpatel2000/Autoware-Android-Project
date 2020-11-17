@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -39,6 +40,7 @@ public class Book_ServiceFragment extends Fragment {
     private Button BookService;
     private TextView ServiceStationDetails;
     private FirebaseFirestore db;
+    private EditText description;
     String OwnerUID = "";
     public Book_ServiceFragment() {
         // Required empty public constructor
@@ -56,6 +58,7 @@ public class Book_ServiceFragment extends Fragment {
         SelectCarList = (LinearLayout) v.findViewById(R.id.linear_layout_Car_List);
         TowingSwitch = (Switch) v.findViewById(R.id.towing_switch);
         BookService = (Button) v.findViewById(R.id.btn_book_service);
+        description = (EditText) v.findViewById(R.id.edittext_cust_service_description);
         ServiceStationDetails = v.findViewById(R.id.ServiceStationDetails);
         ArrayList<CheckBox> cars = new ArrayList<CheckBox>();
         db = FirebaseFirestore.getInstance();
@@ -84,6 +87,7 @@ public class Book_ServiceFragment extends Fragment {
                               Car c = document.toObject(Car.class);
                               CheckBox cb = new CheckBox(getActivity().getApplicationContext());
                               cb.setText(c.getRegistrationNumber() + "("+ c.getBrand() +" " + c.getModel() + ")");
+                              cb.setTextSize(22);
                               cars.add(cb);
                               SelectCarList.addView(cb);
                           }
@@ -100,7 +104,7 @@ public class Book_ServiceFragment extends Fragment {
                     if(c.isChecked())
                         selectedcars.add(c.getText().toString().substring(0,c.getText().toString().indexOf(" ")));
                 }
-                Services service = new Services(user.getUid(),ServiceID,OwnerUID,selectedcars,TowingSwitch.isChecked(), "17/11/2020");
+                Services service = new Services(user.getUid(),ServiceID,OwnerUID,selectedcars,TowingSwitch.isChecked(), "17/11/2020",false,description.getText().toString());
                 FirebaseFirestore.getInstance().collection("Services").document(ServiceID).set(service).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -112,7 +116,7 @@ public class Book_ServiceFragment extends Fragment {
                 });
             }
         });
-
         return v;
+
     }
 }

@@ -1,25 +1,47 @@
 package com.example.autoware;
 
 import java.util.ArrayList;
+import java.util.SplittableRandom;
 
 public class Services {
     private String customerID;
     private String serviceID;
     private String ownerID;
     private ArrayList<String> cars;
+    private ArrayList<String> Spareparts;
+    private ArrayList<Integer> Sparepartsprice;
     private Boolean towingFlag;
     private String date;
-
+    private Boolean status;
+    private String description;
     public Services() {
     }
 
-    public Services(String customerID, String serviceID, String ownerID, ArrayList<String> cars, Boolean towingFlag, String date) {
+    public ArrayList<String> getSpareparts() {
+        return Spareparts;
+    }
+
+    public void setSpareparts(ArrayList<String> spareparts) {
+        Spareparts = spareparts;
+    }
+
+    public ArrayList<Integer> getSparepartsprice() {
+        return Sparepartsprice;
+    }
+
+    public void setSparepartsprice(ArrayList<Integer> sparepartsprice) {
+        Sparepartsprice = sparepartsprice;
+    }
+
+    public Services(String customerID, String serviceID, String ownerID, ArrayList<String> cars, Boolean towingFlag, String date, Boolean status, String description) {
         this.customerID = customerID;
         this.serviceID = serviceID;
         this.ownerID = ownerID;
         this.cars = cars;
         this.towingFlag = towingFlag;
         this.date = date;
+        this.status = status;
+        this.description = description;
     }
 
     public String getCustomerID() {
@@ -46,6 +68,14 @@ public class Services {
         this.ownerID = ownerID;
     }
 
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
     public ArrayList<String> getCars() {
         return cars;
     }
@@ -68,5 +98,13 @@ public class Services {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
