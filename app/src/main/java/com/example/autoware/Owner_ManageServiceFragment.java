@@ -14,6 +14,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -96,13 +97,25 @@ public class Owner_ManageServiceFragment extends Fragment {
         Save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ArrayList<String> Spares = new ArrayList<String>();
+                ArrayList<Integer> Sparesprices = new ArrayList<Integer>();
                 for (int i = 0; i < SparepartsCheckBoxes.size(); i++) {
                     if(SparepartsCheckBoxes.get(i).isChecked())
                     {
-                        Spareparts.get(i);
+                        Spares.add(Spareparts.get(i).getName());
+                        Sparesprices.add(Spareparts.get(i).getPrice());
                     }
                 }
-
+                service.setAmount(total);
+                service.setSpareparts(Spares);
+                service.setSparepartsprice(Sparesprices);
+                FirebaseFirestore.getInstance().collection("Services").document(service.getServiceID()).set(service)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(getActivity(), "Service Details updated successfully", Toast.LENGTH_SHORT).show();
+                            }
+                        });
             }
         });
         return v;
