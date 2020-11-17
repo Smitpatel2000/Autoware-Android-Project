@@ -14,7 +14,16 @@ public class Services {
     private String date;
     private Boolean status;
     private String description;
+    private float amount;
     public Services() {
+    }
+
+    public float getAmount() {
+        return amount;
+    }
+
+    public void setAmount(float amount) {
+        this.amount = amount;
     }
 
     public ArrayList<String> getSpareparts() {

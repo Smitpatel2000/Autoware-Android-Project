@@ -47,30 +47,10 @@ public class Customer_ServicesFragment extends Fragment {
         city = (EditText) v.findViewById(R.id.City);
         search = (ImageButton) v.findViewById(R.id.search_btn);
         ServiceStationsList = (ListView) v.findViewById(R.id.cust_servicestations_list);
-        /*FirebaseFirestore.getInstance().collection("Owners").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                    ServiceStations.add(document.toObject(Owner.class));
-                    ServiceStationUIDs.add(document.getId());
-                }
-                //Toast.makeText(getActivity(), "firebase", Toast.LENGTH_SHORT).show();
-                ServiceStationsAdapter serviceStationsAdapter =  new ServiceStationsAdapter(getActivity(), ServiceStations, ServiceStationUIDs);
-                ServiceStationsList.setAdapter(serviceStationsAdapter);
-            }
-        }).addOnFailureListener(
-                new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getActivity(), "Operation Failure", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        );*/
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String City = city.getText().toString();
-
                 FirebaseFirestore.getInstance().collection("Owners").whereEqualTo("location",City)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -87,11 +67,8 @@ public class Customer_ServicesFragment extends Fragment {
                         }
                     }
                 });
-
-
             }
         });
-
         return v;
     }
 }
