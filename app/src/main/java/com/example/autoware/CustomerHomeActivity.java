@@ -90,6 +90,9 @@ public class CustomerHomeActivity extends AppCompatActivity {
                         break;
 
                     case R.id.dr_cust_services:
+                        ft = getSupportFragmentManager().beginTransaction();
+                        ft.replace(R.id.cust_framelayout, new Customer_ServicesFragment());
+                        ft.commit();
                         break;
 
                     case R.id.dr_cust_account:

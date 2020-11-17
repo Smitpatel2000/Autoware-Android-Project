@@ -26,7 +26,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:ems="10"
-                    android:inputType="textEmailAddress"
+                    android:inputType="text"
                     android:textSize="20sp" />
             </com.google.android.material.textfield.TextInputLayout>
 

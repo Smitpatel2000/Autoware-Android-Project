@@ -2,6 +2,7 @@ package com.example.autoware;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -10,8 +11,15 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -21,6 +29,7 @@ public class Customer_ServicesFragment extends Fragment {
     ImageButton search;
     ListView ServiceStationsList;
     private ArrayList<Owner> ServiceStations = new ArrayList<Owner>();
+    private ArrayList<String> ServiceStationUIDs = new ArrayList<String>();
     public Customer_ServicesFragment() {
         // Required empty public constructor
     }
@@ -38,11 +47,48 @@ public class Customer_ServicesFragment extends Fragment {
         city = (EditText) v.findViewById(R.id.City);
         search = (ImageButton) v.findViewById(R.id.search_btn);
         ServiceStationsList = (ListView) v.findViewById(R.id.cust_servicestations_list);
+        /*FirebaseFirestore.getInstance().collection("Owners").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                    ServiceStations.add(document.toObject(Owner.class));
+                    ServiceStationUIDs.add(document.getId());
+                }
+                //Toast.makeText(getActivity(), "firebase", Toast.LENGTH_SHORT).show();
+                ServiceStationsAdapter serviceStationsAdapter =  new ServiceStationsAdapter(getActivity(), ServiceStations, ServiceStationUIDs);
+                ServiceStationsList.setAdapter(serviceStationsAdapter);
+            }
+        }).addOnFailureListener(
+                new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getActivity(), "Operation Failure", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );*/
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String City = city.getText().toString();
-                FirebaseFirestore.getInstance().collection("Owners").
+
+                FirebaseFirestore.getInstance().collection("Owners").whereEqualTo("location",City)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                ServiceStations.add(document.toObject(Owner.class));
+                                ServiceStationUIDs.add(document.getId());
+                            }
+                            ServiceStationsAdapter serviceStationsAdapter =  new ServiceStationsAdapter(getActivity(), ServiceStations, ServiceStationUIDs);
+                            ServiceStationsList.setAdapter(serviceStationsAdapter);
+                        } else {
+                            Toast.makeText(getActivity(), "Error in getting docs", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+
             }
         });
 

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Book_ServiceFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <!-- TODO: Update blank fragment layout -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="#eee"
+            android:gravity="center"
+            android:text="BookService"
+            android:textSize="40dp"
+            android:textStyle="bold"
+            android:typeface="serif" />
+
+        <TextView
+            android:id="@+id/ServiceStationDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ddd"
+            />
+
+        <LinearLayout
+            android:id="@+id/linear_layout_Car_List"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </LinearLayout>
+
+        <Switch
+            android:id="@+id/towing_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Towing"
+            android:layout_marginLeft="30dp"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/btn_book_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Book Service"
+            android:textSize="24dp" />
+
+
+    </LinearLayout>
+
+</FrameLayout>
