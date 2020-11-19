@@ -96,7 +96,7 @@ public class Owner_ManageServiceFragment extends Fragment {
                     }
                 }
         );
-        //PopulateServiceDetails();
+        PopulateServiceDetails();
         db.collection("Spareparts").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).collection("Spareparts").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
