@@ -27,9 +27,9 @@ public class OwnerServiceListAdapter extends BaseAdapter {
     public OwnerServiceListAdapter() {
     }
 
-    public OwnerServiceListAdapter(Activity c, ArrayList<Services> services) {
+    public OwnerServiceListAdapter(Activity c, ArrayList<Services> servicess) {
         this.c = c;
-        this.services = services;
+        this.services = servicess;
         inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 

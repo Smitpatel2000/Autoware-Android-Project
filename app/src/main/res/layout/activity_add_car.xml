@@ -13,16 +13,17 @@
 
     <TextView
         android:id="@+id/addcar_textview"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:textSize="26dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:typeface="serif"
-        android:textStyle="bold"
-        android:padding="10dp"
+        android:layout_marginTop="20dp"
         android:background="#6AE6E5E5"
-        android:text="ADD CAR" />
+        android:fontFamily="@font/montserrat"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="ADD CAR"
+        android:textSize="26dp"
+        android:textStyle="bold"
+        android:typeface="serif" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/Addcar_TextLayout1"

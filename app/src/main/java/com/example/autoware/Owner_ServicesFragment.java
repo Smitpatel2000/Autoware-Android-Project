@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
@@ -40,11 +41,12 @@ public class Owner_ServicesFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_owner__services, container, false);
         ServicesListView = (ListView) v.findViewById(R.id.Owner_Services_List);
+        services = new ArrayList<Services>();
         FirebaseFirestore.getInstance().collection("Services").whereEqualTo("ownerID", FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException error) {
-                        services.clear();
+                        //services.clear();
                         for (DocumentSnapshot documentSnapshot : snapshots.getDocuments())
                         {
                             services.add(documentSnapshot.toObject(Services.class));

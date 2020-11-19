@@ -1,15 +1,16 @@
 package com.example.autoware;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
+import java.util.List;
 import java.util.SplittableRandom;
 
 public class Services {
     private String customerID;
     private String serviceID;
     private String ownerID;
-    private ArrayList<String> cars;
-    private ArrayList<String> Spareparts;
-    private ArrayList<Integer> Sparepartsprice;
+    private List<String> cars;
+    private List<String> Spareparts;
+    private List<Integer> Sparepartsprice;
     private Boolean towingFlag;
     private String date;
     private Boolean status;
@@ -26,23 +27,23 @@ public class Services {
         this.amount = amount;
     }
 
-    public ArrayList<String> getSpareparts() {
+    public List<String> getSpareparts() {
         return Spareparts;
     }
 
-    public void setSpareparts(ArrayList<String> spareparts) {
+    public void setSpareparts(List<String> spareparts) {
         Spareparts = spareparts;
     }
 
-    public ArrayList<Integer> getSparepartsprice() {
+    public List<Integer> getSparepartsprice() {
         return Sparepartsprice;
     }
 
-    public void setSparepartsprice(ArrayList<Integer> sparepartsprice) {
+    public void setSparepartsprice(List<Integer> sparepartsprice) {
         Sparepartsprice = sparepartsprice;
     }
 
-    public Services(String customerID, String serviceID, String ownerID, ArrayList<String> cars, Boolean towingFlag, String date, Boolean status, String description) {
+    public Services(String customerID, String serviceID, String ownerID, List<String> cars, Boolean towingFlag, String date, Boolean status, String description) {
         this.customerID = customerID;
         this.serviceID = serviceID;
         this.ownerID = ownerID;
@@ -85,11 +86,11 @@ public class Services {
         this.status = status;
     }
 
-    public ArrayList<String> getCars() {
+    public List<String> getCars() {
         return cars;
     }
 
-    public void setCars(ArrayList<String> cars) {
+    public void setCars(List<String> cars) {
         this.cars = cars;
     }
 

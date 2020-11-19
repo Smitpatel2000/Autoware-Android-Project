@@ -4,7 +4,9 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +25,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.remote.FirestoreChannel;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class Owner_ManageServiceFragment extends Fragment {
 
@@ -31,8 +36,8 @@ public class Owner_ManageServiceFragment extends Fragment {
     private Button Save, Back, Done;
     private EditText Tax, ServiceCharges;
     private LinearLayout SparepartsList;
-    private ArrayList<CheckBox> SparepartsCheckBoxes;
-    private ArrayList<Sparepart> Spareparts;
+    private List<CheckBox> SparepartsCheckBoxes;
+    private List<Sparepart> Spareparts;
     private FirebaseFirestore db;
     private Services service;
     private int total = 0;
@@ -63,7 +68,25 @@ public class Owner_ManageServiceFragment extends Fragment {
         Tax = (EditText) v.findViewById(R.id.Charges_tax);
         SparepartsList = v.findViewById(R.id.linear_layout_sparepartlist);
         db = FirebaseFirestore.getInstance();
+        Spareparts = new ArrayList<Sparepart>();
+        SparepartsCheckBoxes = new ArrayList<CheckBox>();
+        Tax.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if(!TextUtils.isEmpty(s))
+                        PopulateJobCard();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         Bundle b = this.getArguments();
         db.collection("Services").document(b.getString("ServiceID")).get().addOnSuccessListener(
                 new OnSuccessListener<DocumentSnapshot>() {
@@ -73,12 +96,12 @@ public class Owner_ManageServiceFragment extends Fragment {
                     }
                 }
         );
-        PopulateServiceDetails();
+        //PopulateServiceDetails();
         db.collection("Spareparts").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).collection("Spareparts").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        for (DocumentSnapshot document : queryDocumentSnapshots) {
+                        for (DocumentSnapshot document : queryDocumentSnapshots){
                             Sparepart s = document.toObject(Sparepart.class);
                             Spareparts.add(s);
                             CheckBox cb = new CheckBox((getActivity().getApplicationContext()));
@@ -91,6 +114,7 @@ public class Owner_ManageServiceFragment extends Fragment {
                                 }
                             });
                             SparepartsCheckBoxes.add(cb);
+                            SparepartsList.addView(cb);
                         }
                     }
                 });
@@ -147,6 +171,7 @@ public class Owner_ManageServiceFragment extends Fragment {
 
     public void PopulateJobCard() {
         String jobcardstring = "";
+        total=0;
         for (int i = 0; i < SparepartsCheckBoxes.size(); i++) {
             if (SparepartsCheckBoxes.get(i).isChecked()) {
                 jobcardstring += "Spare part " + i + ": " + Spareparts.get(i).getName() + " - ₹" + Spareparts.get(i).getPrice() + "\n";
@@ -162,7 +187,7 @@ public class Owner_ManageServiceFragment extends Fragment {
         if (!TextUtils.isEmpty(Tax.getText())) {
             total += (Integer.parseInt(Tax.getText().toString()) / total);
 
-            jobcardstring += "\nTotal Taxable Amount:\t  ₹" + (Float.parseFloat(Tax.getText().toString()) / total) + " @ " + Tax.getText().toString();
+            jobcardstring += "\nTotal Taxable Amount:\t  ₹" + (total + ((total/100)*Float.parseFloat(Tax.getText().toString()))) + " @ " + Tax.getText().toString();
         }
         jobcard.setText(jobcardstring);
     }
