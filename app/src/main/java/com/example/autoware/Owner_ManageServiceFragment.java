@@ -1,5 +1,7 @@
 package com.example.autoware;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -44,7 +46,7 @@ public class Owner_ManageServiceFragment extends Fragment {
     private Services service;
     private int total = 0;
     private String ser;
-
+    private String ToCustomerEmail;
     public Owner_ManageServiceFragment() {
         // Required empty public constructor
     }
@@ -169,6 +171,20 @@ public class Owner_ManageServiceFragment extends Fragment {
                                             @Override
                                             public void onSuccess(Void aVoid) {
                                                 Toast.makeText(getActivity().getApplicationContext(), "Service Details updated successfully", Toast.LENGTH_SHORT).show();
+                                                String[] TO = { ToCustomerEmail};
+                                                Intent emailIntent = new Intent(Intent.ACTION_SEND);
+
+                                                emailIntent.setData(Uri.parse("mailto:"));
+                                                emailIntent.setType("text/plain");
+                                                emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+                                                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "No reply: Your Service is completed");
+                                                emailIntent.putExtra(Intent.EXTRA_TEXT, ServiceDetails.getText().toString() +"\n" + jobcard.getText().toString());
+
+                                                try {
+                                                    startActivity(Intent.createChooser(emailIntent, "Send Email about the completion"));
+                                                } catch (android.content.ActivityNotFoundException ex) {
+                                                    Toast.makeText(getActivity(), "Error in sending email", Toast.LENGTH_SHORT).show();
+                                                }
                                                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                                                 ft.replace(R.id.owner_framelayout, new Owner_ServicesFragment());
                                                 ft.commit();
@@ -197,6 +213,7 @@ public class Owner_ManageServiceFragment extends Fragment {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Customer c = documentSnapshot.toObject(Customer.class);
                 ser += c.getName() + "\nEmail: " + c.getEmail() + "\nAddress" + c.getLocation();
+                ToCustomerEmail = c.getEmail();
             }
         });
         ser += "\nDate of Booking: " + service.getDate();

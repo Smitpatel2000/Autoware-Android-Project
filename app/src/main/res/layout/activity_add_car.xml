@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-
     android:layout_height="match_parent"
     tools:context=".AddCarActivity">
 
@@ -116,5 +115,6 @@
         android:id="@+id/Add_car_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/custom"
         android:text="Add car" />
 </LinearLayout>

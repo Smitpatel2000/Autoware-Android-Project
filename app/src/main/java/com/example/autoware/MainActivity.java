@@ -28,7 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class MainActivity extends AppCompatActivity {
 
     private EditText email, password;
-    private Button login, signup;
+    private Button login, signup, changepassword;
     private CheckBox check_if_owner;
     private Boolean isowner = false;
     @Override
@@ -47,6 +47,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        changepassword = (Button) findViewById(R.id.changepassword);
+        changepassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, ChangePasswordActivity.class);
+                startActivity(i);
+            }
+        });
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

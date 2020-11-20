@@ -88,6 +88,7 @@ public class Book_ServiceFragment extends Fragment {
                               CheckBox cb = new CheckBox(getActivity().getApplicationContext());
                               cb.setText(c.getRegistrationNumber() + "("+ c.getBrand()+ ","+c.getModel() + ")");
                               cb.setTextSize(22);
+                              
                               cars.add(cb);
                               SelectCarList.addView(cb);
                           }

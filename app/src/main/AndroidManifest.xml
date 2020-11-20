@@ -13,6 +13,7 @@
         android:roundIcon="@drawable/autoware"
         android:supportsRtl="true"
         android:theme="@style/Theme.Autoware">
+        <activity android:name=".ChangePasswordActivity"></activity>
         <activity android:name=".AddCarActivity" />
         <activity android:name=".CustomerHomeActivity" />
         <activity android:name=".HomeActivity" />

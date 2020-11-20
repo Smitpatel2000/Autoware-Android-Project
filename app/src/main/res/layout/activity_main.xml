@@ -84,7 +84,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout4"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout4"
-        app:layout_constraintVertical_bias="0.3" />
+        app:layout_constraintVertical_bias="0.675" />
 
     <Button
         android:id="@+id/login"
@@ -98,7 +98,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout4"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout4"
-        app:layout_constraintVertical_bias="0.368" />
+        app:layout_constraintVertical_bias="0.516" />
 
     <Button
         android:id="@+id/signup"
@@ -112,6 +112,23 @@
         app:layout_constraintStart_toEndOf="@+id/login"
         app:layout_constraintTop_toTopOf="@+id/login"
         app:layout_constraintVertical_bias="0.276" />
+
+    <Button
+        android:id="@+id/changepassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:text="Forget/Change Password"
+        android:textAllCaps="false"
+        android:gravity="top"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:textColor="@color/purple_700"
+        app:layout_constraintBottom_toTopOf="@+id/check_if_owner"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayout4"
+        app:layout_constraintHorizontal_bias="0.923"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayout4"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout4"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
