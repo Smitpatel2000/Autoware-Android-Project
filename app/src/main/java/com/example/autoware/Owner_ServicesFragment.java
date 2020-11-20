@@ -51,8 +51,13 @@ public class Owner_ServicesFragment extends Fragment {
                         {
                             services.add(documentSnapshot.toObject(Services.class));
                         }
-                        OwnerServiceListAdapter ownerServiceListAdapter =  new OwnerServiceListAdapter(getActivity(), services);
-                        ServicesListView.setAdapter(ownerServiceListAdapter);
+                        OwnerServiceListAdapter ownerServiceListAdapter = null;
+                        try {
+                            ownerServiceListAdapter = new OwnerServiceListAdapter(getActivity(), services);
+                            ServicesListView.setAdapter(ownerServiceListAdapter);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
         return v;
