@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
    android:overScrollMode="ifContentScrolls"
-    android:background="@drawable/customer_gradient"
+    android:background="@drawable/light_gradient"
     tools:context=".SignupActivity">
 
     <TextView
@@ -99,7 +99,7 @@
             tools:layout_editor_absoluteY="257dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/sign_up_login"
         android:layout_width="130dp"
         android:layout_height="52dp"
@@ -107,6 +107,8 @@
         android:layout_marginBottom="10dp"
         android:text="LOGIN"
         android:textSize="20sp"
+        android:background="@drawable/custom"
+        android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -114,12 +116,14 @@
         app:layout_constraintTop_toBottomOf="@+id/signupTextlayout3"
         app:layout_constraintVertical_bias="0.268" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/register"
         android:layout_width="143dp"
         android:layout_height="52dp"
         android:text="Register"
         android:textSize="20sp"
+        android:background="@drawable/custom"
+        android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/sign_up_login"
         app:layout_constraintEnd_toEndOf="@+id/signupTextlayout3"
         app:layout_constraintHorizontal_bias="1.0"

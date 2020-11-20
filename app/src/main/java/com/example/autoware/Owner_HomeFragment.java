@@ -15,7 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class Owner_HomeFragment extends Fragment {
 
-    private ImageButton account,services,logout,spareparts;
+    private ImageButton account,services,analytics,spareparts;
     public Owner_HomeFragment() {
         // Required empty public constructor
     }
@@ -34,8 +34,8 @@ public class Owner_HomeFragment extends Fragment {
         View v=  inflater.inflate(R.layout.fragment_owner__home, container, false);
         account = (ImageButton) v.findViewById(R.id.owner_home_account_btn);
         services = (ImageButton) v.findViewById(R.id.owner_home_services_btn);
-        spareparts  = (ImageButton) v.findViewById(R.id.owner_home_logout);
-        logout = (ImageButton) v.findViewById(R.id.owner_home_logout);
+        spareparts  = (ImageButton) v.findViewById(R.id.owner_home_spareparts_btn);
+        analytics = (ImageButton) v.findViewById(R.id.owner_home_analytics);
 
         account.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,13 +64,12 @@ public class Owner_HomeFragment extends Fragment {
             }
         });
 
-        logout.setOnClickListener(new View.OnClickListener() {
+        analytics.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                Intent it = new Intent(getActivity(), MainActivity.class);
-                startActivity(it);
-                getActivity().finish();
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.owner_framelayout, new Owner_AnalyticsFragment());
+                ft.commit();
             }
         });
         return v;

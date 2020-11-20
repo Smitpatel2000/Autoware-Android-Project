@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/customer_gradient"
+    android:background="@drawable/light_gradient"
     tools:context=".MainActivity">
 
     <TextView
@@ -31,7 +31,6 @@
         android:hint="Email"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
@@ -51,7 +50,6 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout4"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-
         android:layout_width="302dp"
         android:layout_height="68dp"
         android:hint="Password"
@@ -78,7 +76,8 @@
         android:layout_width="269dp"
         android:layout_height="27dp"
         android:layout_marginTop="21dp"
-        android:text=" Are you a garage owner"
+        android:backgroundTint="#FFFFFF"
+        android:text=" Are you a Service Station owner"
         app:layout_constraintBottom_toTopOf="@+id/login"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout4"
         app:layout_constraintHorizontal_bias="0.0"
@@ -86,12 +85,13 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout4"
         app:layout_constraintVertical_bias="0.675" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/login"
         android:layout_width="130dp"
         android:layout_height="52dp"
         android:text="LOGIN"
-
+        android:background="@drawable/custom"
+        android:padding="10dp"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -100,12 +100,14 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout4"
         app:layout_constraintVertical_bias="0.516" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/signup"
         android:layout_width="130dp"
         android:layout_height="52dp"
         android:text="Sign UP"
         android:textSize="20sp"
+        android:background="@drawable/custom"
+        android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/login"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout4"
         app:layout_constraintHorizontal_bias="1.0"
@@ -115,17 +117,16 @@
 
     <Button
         android:id="@+id/changepassword"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
+        android:gravity="top|end
+"          android:textColor="@color/purple_500"
         android:text="Forget/Change Password"
         android:textAllCaps="false"
-        android:gravity="top"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:textColor="@color/purple_700"
         app:layout_constraintBottom_toTopOf="@+id/check_if_owner"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout4"
-        app:layout_constraintHorizontal_bias="0.923"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout4"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout4"
         app:layout_constraintVertical_bias="0.0" />

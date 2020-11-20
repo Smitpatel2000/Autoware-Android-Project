@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="160dp"
-    android:background="#bababa"
+    android:background="#727273"
     android:gravity="bottom|left"
 
     android:orientation="vertical">
@@ -31,7 +31,6 @@
         android:layout_height="wrap_content"
         android:textColor="#eee"
         android:textStyle="bold"
-        android:background="#77000000"
         android:text="Smit Kamlesh Patel"
         android:layout_margin="10dp"/>
 

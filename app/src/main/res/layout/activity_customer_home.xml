@@ -9,7 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
-        android:background="@drawable/customer_gradient"
+        android:background="@drawable/light_gradient"
         android:layout_height="wrap_content">
 
 

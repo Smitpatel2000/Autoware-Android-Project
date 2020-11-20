@@ -58,11 +58,12 @@ public class CustomerServiceListAdapter extends BaseAdapter {
         ImageView Listicon = (ImageView) itemView.findViewById(R.id.item_image);
         Listicon.setImageDrawable(ContextCompat.getDrawable(c,R.drawable.service_icon));
         ImageButton Status = (ImageButton) itemView.findViewById(R.id.cust_car_delete);
+        Status.setBackgroundColor(Color.TRANSPARENT);
         Services service = getItem(position);
         if(service.getStatus())
-            Listicon.setBackgroundColor(Color.GREEN);
+            Listicon.setBackgroundColor(Color.rgb(66, 245, 90));
         else
-            Listicon.setBackgroundColor(Color.BLUE);
+            Listicon.setBackgroundColor(Color.LTGRAY);
         ServiceHeader.setText("");
         for (String s : service.getCars()) {
             ServiceHeader.setText(ServiceHeader.getText() + s +", ");

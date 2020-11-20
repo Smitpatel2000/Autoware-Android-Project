@@ -31,7 +31,7 @@
         app:headerLayout="@layout/drawerheader"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="#fff"
+        android:background="@drawable/gray_gradient"
         app:itemTextColor="#606060"
         app:itemIconTint="#606060"
         app:menu="@menu/drawermenu"

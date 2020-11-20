@@ -28,6 +28,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import org.w3c.dom.Document;
 
 import java.security.Provider;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.UUID;
@@ -69,7 +70,7 @@ public class Book_ServiceFragment extends Fragment {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         Owner o = documentSnapshot.toObject(Owner.class);
-                        ServiceStationDetails.setText("Service Station Name: " + o.getGaragename() + "\nOwner Name: " + o.getName() + "\nAddress: " + o.getAddress() + "\nLocation: " + o.getLocation() + "\nContact: +91 " + o.getPhone());
+                        ServiceStationDetails.setText("Service Station Name: " + o.getGaragename() + "\nOwner Name: " + o.getName() + "\nAddress: " + o.getAddress() + "\nLocation: " + o.getLocation() + "\nContact: +91" + o.getPhone());
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -86,7 +87,7 @@ public class Book_ServiceFragment extends Fragment {
                           {
                               Car c = document.toObject(Car.class);
                               CheckBox cb = new CheckBox(getActivity().getApplicationContext());
-                              cb.setText(c.getRegistrationNumber() + "("+ c.getBrand()+ ","+c.getModel() + ")");
+                              cb.setText(c.getRegistrationNumber() + "("+ c.getBrand()+ " "+c.getModel() + ")");
                               cb.setTextSize(22);
                               
                               cars.add(cb);
@@ -105,7 +106,8 @@ public class Book_ServiceFragment extends Fragment {
                     if(c.isChecked())
                         selectedcars.add(c.getText().toString());
                 }
-                Services service = new Services(user.getUid(),ServiceID,OwnerUID,selectedcars,TowingSwitch.isChecked(), "20/11/2020",false,description.getText().toString());
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Services service = new Services(user.getUid(),ServiceID,OwnerUID,selectedcars,TowingSwitch.isChecked(), dateFormat.format(Calendar.getInstance().getTime()),false,description.getText().toString());
                 FirebaseFirestore.getInstance().collection("Services").document(ServiceID).set(service).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {

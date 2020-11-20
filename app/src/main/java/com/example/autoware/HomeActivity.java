@@ -95,7 +95,7 @@ public class HomeActivity extends AppCompatActivity {
 
                     case R.id.owner_analytics:
                         ft = getSupportFragmentManager().beginTransaction();
-                        ft.replace(R.id.owner_framelayout, new Customer_HomeFragment());
+                        ft.replace(R.id.owner_framelayout, new Owner_AnalyticsFragment());
                         ft.commit();
                         break;
                     case R.id.owner_Account:
