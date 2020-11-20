@@ -5,20 +5,18 @@
     android:layout_height="match_parent"
     tools:context=".Owner_ServicesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <ListView
                 android:id="@+id/Owner_Services_List"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="700dp" />
         </LinearLayout>
     </ScrollView>
 </FrameLayout>

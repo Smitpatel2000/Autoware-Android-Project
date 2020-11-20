@@ -46,7 +46,7 @@ public class Owner_ServicesFragment extends Fragment {
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException error) {
-                        //services.clear();
+                        services.clear();
                         for (DocumentSnapshot documentSnapshot : snapshots.getDocuments())
                         {
                             services.add(documentSnapshot.toObject(Services.class));
