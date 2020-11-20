@@ -86,6 +86,8 @@ public class Owner_AccountFragment extends Fragment {
                         Name.setText(o.getName());
                         Location.setText(o.getLocation());
                         Garagename.setText(o.getGaragename());
+                        address.setText(o.getAddress());
+                        phone.setText(o.getPhone());
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override

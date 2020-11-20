@@ -60,7 +60,7 @@ public class HomeActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //Toast.makeText(this, FirebaseAuth.getInstance().getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
         FragmentTransaction f = getSupportFragmentManager().beginTransaction();
-        f.replace(R.id.owner_framelayout, new Customer_HomeFragment());
+        f.replace(R.id.owner_framelayout, new Owner_HomeFragment());
         f.commit();
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override

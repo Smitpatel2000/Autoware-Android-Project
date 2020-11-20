@@ -69,7 +69,7 @@ public class Book_ServiceFragment extends Fragment {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         Owner o = documentSnapshot.toObject(Owner.class);
-                        ServiceStationDetails.setText("ServiceStationName: " + o.getGaragename() + "\nOwner Name: " + o.getName() + "\nAddress: " + o.getAddress() + "\nLocation: " + o.getLocation() + "\nContact: +91 " + o.getPhone());
+                        ServiceStationDetails.setText("Service Station Name: " + o.getGaragename() + "\nOwner Name: " + o.getName() + "\nAddress: " + o.getAddress() + "\nLocation: " + o.getLocation() + "\nContact: +91 " + o.getPhone());
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -86,7 +86,7 @@ public class Book_ServiceFragment extends Fragment {
                           {
                               Car c = document.toObject(Car.class);
                               CheckBox cb = new CheckBox(getActivity().getApplicationContext());
-                              cb.setText(c.getRegistrationNumber() + "("+ c.getBrand() +" " + c.getModel() + ")");
+                              cb.setText(c.getRegistrationNumber() + "("+ c.getBrand()+ ","+c.getModel() + ")");
                               cb.setTextSize(22);
                               cars.add(cb);
                               SelectCarList.addView(cb);
@@ -102,15 +102,15 @@ public class Book_ServiceFragment extends Fragment {
                 ArrayList<String> selectedcars = new ArrayList<String>();
                 for (CheckBox c : cars) {
                     if(c.isChecked())
-                        selectedcars.add(c.getText().toString().substring(0,c.getText().toString().indexOf(" ")));
+                        selectedcars.add(c.getText().toString());
                 }
-                Services service = new Services(user.getUid(),ServiceID,OwnerUID,selectedcars,TowingSwitch.isChecked(), "17/11/2020",false,description.getText().toString());
+                Services service = new Services(user.getUid(),ServiceID,OwnerUID,selectedcars,TowingSwitch.isChecked(), "20/11/2020",false,description.getText().toString());
                 FirebaseFirestore.getInstance().collection("Services").document(ServiceID).set(service).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(getActivity(), "Service Registered Successfully", Toast.LENGTH_SHORT).show();
                         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                        ft.replace(R.id.cust_framelayout,new Customer_ServicesFragment());
+                        ft.replace(R.id.cust_framelayout,new Customer_Service_ListFragment());
                         ft.commit();
                     }
                 });

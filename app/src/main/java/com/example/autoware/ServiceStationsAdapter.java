@@ -2,6 +2,7 @@ package com.example.autoware;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -58,11 +60,13 @@ public class ServiceStationsAdapter extends BaseAdapter {
         itemView = inflater.inflate(R.layout.item_recycler,null);
         TextView GarageName = (TextView) itemView.findViewById(R.id.text_big);
         TextView GarageDetails = (TextView) itemView.findViewById(R.id.text_small);
-        //ImageView Listicon = (ImageView) itemView.findViewById(R.id.item_image);
+        ImageView Listicon = (ImageView) itemView.findViewById(R.id.item_image);
         ImageButton BookService = (ImageButton) itemView.findViewById(R.id.cust_car_delete); //button to book service
+        Listicon.setImageDrawable(ContextCompat.getDrawable(c,R.drawable.garage_icon));
+        BookService.setBackgroundColor(Color.TRANSPARENT);
         GarageName.setText(getItem(position).getGaragename());
         GarageDetails.setText(getItem(position).getName() +", "+ getItem(position).getPhone());
-        BookService.setOnClickListener(new View.OnClickListener() {
+        itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentTransaction ft = ((FragmentActivity)c).getSupportFragmentManager().beginTransaction();

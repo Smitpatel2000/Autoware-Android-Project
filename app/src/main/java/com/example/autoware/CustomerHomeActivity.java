@@ -91,7 +91,7 @@ public class CustomerHomeActivity extends AppCompatActivity {
 
                     case R.id.dr_cust_services:
                         ft = getSupportFragmentManager().beginTransaction();
-                        ft.replace(R.id.cust_framelayout, new Customer_ServicesFragment());
+                        ft.replace(R.id.cust_framelayout, new Customer_Service_ListFragment());
                         ft.commit();
                         break;
 

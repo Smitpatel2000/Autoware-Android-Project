@@ -19,16 +19,16 @@ import androidx.fragment.app.FragmentTransaction;
 
 import java.util.ArrayList;
 
-public class OwnerServiceListAdapter extends BaseAdapter {
+public class CustomerServiceListAdapter extends BaseAdapter {
 
     private Activity c;
     private ArrayList<Services> services;
     private static LayoutInflater inflater = null;
 
-    public OwnerServiceListAdapter() {
+    public CustomerServiceListAdapter() {
     }
 
-    public OwnerServiceListAdapter(Activity c, ArrayList<Services> servicess) {
+    public CustomerServiceListAdapter(Activity c, ArrayList<Services> servicess) {
         this.c = c;
         this.services = servicess;
         inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -62,7 +62,7 @@ public class OwnerServiceListAdapter extends BaseAdapter {
         if(service.getStatus())
             Listicon.setBackgroundColor(Color.GREEN);
         else
-            Listicon.setBackgroundColor(Color.LTGRAY);
+            Listicon.setBackgroundColor(Color.BLUE);
         ServiceHeader.setText("");
         for (String s : service.getCars()) {
             ServiceHeader.setText(ServiceHeader.getText() + s +", ");
@@ -77,9 +77,9 @@ public class OwnerServiceListAdapter extends BaseAdapter {
                 FragmentTransaction ft = ((FragmentActivity)c).getSupportFragmentManager().beginTransaction();
                 Bundle b = new Bundle();
                 b.putString("ServiceID",getItem(position).getServiceID());
-                Fragment fragment  = new Owner_ManageServiceFragment();
+                Fragment fragment  = new CustomerViewServiceFragment();
                 fragment.setArguments(b);
-                ft.replace(R.id.owner_framelayout, fragment);
+                ft.replace(R.id.cust_framelayout, fragment);
                 ft.commit();
             }
         });

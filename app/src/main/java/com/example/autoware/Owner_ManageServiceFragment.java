@@ -3,6 +3,8 @@ package com.example.autoware;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.text.Editable;
 import android.text.TextUtils;
@@ -78,8 +80,8 @@ public class Owner_ManageServiceFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if(!TextUtils.isEmpty(s))
-                        PopulateJobCard();
+                if (!TextUtils.isEmpty(s))
+                    PopulateJobCard();
             }
 
             @Override
@@ -93,55 +95,91 @@ public class Owner_ManageServiceFragment extends Fragment {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         service = documentSnapshot.toObject(Services.class);
+                        PopulateServiceDetails();
+
+                        db.collection("Spareparts").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).collection("Spareparts").get()
+                                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                        for (DocumentSnapshot document : queryDocumentSnapshots) {
+                                            Sparepart s = document.toObject(Sparepart.class);
+                                            Spareparts.add(s);
+                                            CheckBox cb = new CheckBox((getActivity().getApplicationContext()));
+                                            cb.setText(s.getName() + " - ₹" + s.getPrice());
+                                            cb.setTextSize(20);
+                                            cb.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    PopulateJobCard();
+                                                }
+                                            });
+                                            SparepartsCheckBoxes.add(cb);
+                                            SparepartsList.addView(cb);
+                                        }
+                                    }
+                                });
+                        Back.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                                ft.replace(R.id.owner_framelayout, new Owner_ServicesFragment());
+                                ft.commit();
+                            }
+                        });
+                        Save.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ArrayList<String> Spares = new ArrayList<String>();
+                                ArrayList<Integer> Sparesprices = new ArrayList<Integer>();
+                                for (int i = 0; i < SparepartsCheckBoxes.size(); i++) {
+                                    if (SparepartsCheckBoxes.get(i).isChecked()) {
+                                        Spares.add(Spareparts.get(i).getName());
+                                        Sparesprices.add(Spareparts.get(i).getPrice());
+                                    }
+                                }
+                                service.setAmount(total);
+                                service.setSpareparts(Spares);
+                                service.setSparepartsprice(Sparesprices);
+                                FirebaseFirestore.getInstance().collection("Services").document(service.getServiceID()).set(service)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Toast.makeText(getActivity().getApplicationContext(), "Service Details updated successfully", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                            }
+                        });
+                        Done.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ArrayList<String> Spares = new ArrayList<String>();
+                                ArrayList<Integer> Sparesprices = new ArrayList<Integer>();
+                                for (int i = 0; i < SparepartsCheckBoxes.size(); i++) {
+                                    if (SparepartsCheckBoxes.get(i).isChecked()) {
+                                        Spares.add(Spareparts.get(i).getName());
+                                        Sparesprices.add(Spareparts.get(i).getPrice());
+                                    }
+                                }
+                                service.setAmount(total);
+                                service.setSpareparts(Spares);
+                                service.setSparepartsprice(Sparesprices);
+                                service.setStatus(true);
+                                FirebaseFirestore.getInstance().collection("Services").document(service.getServiceID()).set(service)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Toast.makeText(getActivity().getApplicationContext(), "Service Details updated successfully", Toast.LENGTH_SHORT).show();
+                                                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                                                ft.replace(R.id.owner_framelayout, new Owner_ServicesFragment());
+                                                ft.commit();
+                                            }
+                                        });
+
+                            }
+                        });
                     }
                 }
         );
-        PopulateServiceDetails();
-        db.collection("Spareparts").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).collection("Spareparts").get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        for (DocumentSnapshot document : queryDocumentSnapshots){
-                            Sparepart s = document.toObject(Sparepart.class);
-                            Spareparts.add(s);
-                            CheckBox cb = new CheckBox((getActivity().getApplicationContext()));
-                            cb.setText(s.getName() + " - ₹" + s.getPrice());
-                            cb.setTextSize(20);
-                            cb.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    PopulateJobCard();
-                                }
-                            });
-                            SparepartsCheckBoxes.add(cb);
-                            SparepartsList.addView(cb);
-                        }
-                    }
-                });
-        Save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ArrayList<String> Spares = new ArrayList<String>();
-                ArrayList<Integer> Sparesprices = new ArrayList<Integer>();
-                for (int i = 0; i < SparepartsCheckBoxes.size(); i++) {
-                    if(SparepartsCheckBoxes.get(i).isChecked())
-                    {
-                        Spares.add(Spareparts.get(i).getName());
-                        Sparesprices.add(Spareparts.get(i).getPrice());
-                    }
-                }
-                service.setAmount(total);
-                service.setSpareparts(Spares);
-                service.setSparepartsprice(Sparesprices);
-                FirebaseFirestore.getInstance().collection("Services").document(service.getServiceID()).set(service)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(getActivity(), "Service Details updated successfully", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-            }
-        });
         return v;
     }
 
@@ -167,11 +205,12 @@ public class Owner_ManageServiceFragment extends Fragment {
             ser += "\nStatus: Pending";
         else
             ser += "\nStatus: Completed";
+        ServiceDetails.setText(ser);
     }
 
     public void PopulateJobCard() {
         String jobcardstring = "";
-        total=0;
+        total = 0;
         for (int i = 0; i < SparepartsCheckBoxes.size(); i++) {
             if (SparepartsCheckBoxes.get(i).isChecked()) {
                 jobcardstring += "Spare part " + i + ": " + Spareparts.get(i).getName() + " - ₹" + Spareparts.get(i).getPrice() + "\n";
@@ -187,7 +226,7 @@ public class Owner_ManageServiceFragment extends Fragment {
         if (!TextUtils.isEmpty(Tax.getText())) {
             total += (Integer.parseInt(Tax.getText().toString()) / total);
 
-            jobcardstring += "\nTotal Taxable Amount:\t  ₹" + (total + ((total/100)*Float.parseFloat(Tax.getText().toString()))) + " @ " + Tax.getText().toString();
+            jobcardstring += "\nTotal Taxable Amount:\t  ₹" + (total + ((total / 100) * Float.parseFloat(Tax.getText().toString()))) + " @ " + Tax.getText().toString();
         }
         jobcard.setText(jobcardstring);
     }

@@ -3,7 +3,7 @@
     <item android:id="@+id/owner_dashboard" android:title="Dashboard" android:icon="@drawable/dashboard_icon" />
     <item android:id="@+id/owner_admin_panel" android:title="Spareparts" android:icon="@drawable/sparepart_icon"/>
     <item android:id="@+id/owner_services" android:title="Services" android:icon="@drawable/services_icon"/>
-    <item android:id="@+id/owner_analytics" android:title="Analytics" android:icon="@drawable/analytics_icon"/>
+    <item android:id="@+id/owner_analytics" android:visible="false" android:title="Analytics" android:icon="@drawable/analytics_icon"/>
     <item android:id="@+id/owner_Account" android:title="Account" android:icon="@drawable/admin_icon"/>
     <item android:id="@+id/owner_logout" android:title="Logout" android:icon="@drawable/logout_icon"/>
 </menu>
