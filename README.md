@@ -1,5 +1,5 @@
 # Autoware-Android-Project
-Topic: An app to collabrate and manage customers and service Station owners(Garage owners) through a digital platform.
+Topic: An app to collaborate and manage customers and service Station owners(Garage owners) through a digital platform.
 | Type of app: Native Application
  | Execution Platform: Android
  | Language used for development: Java
